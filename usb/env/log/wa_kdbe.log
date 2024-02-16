@@ -1,0 +1,62 @@
+
+
+
+====== Logging starts here. ====== 
+File: wa_kdbe.py
+Date: Saturday 06/05/2023, 20:48:07
+If you see any password here then do let know @github.com/YuvrajRaghuvanshiS/WhatsApp-Key-Database-Extractor
+
+
+
+[Saturday 06/05/2023, 20:48:07] >>> I am in device_serial_id.init(mode=USB, tcp_ip, tcp_port=)
+[Saturday 06/05/2023, 20:48:07] >>> I am in wa_kdbe.main()
+[Saturday 06/05/2023, 20:48:07] >>> I am in wa_kdbe.check_bin()
+[Saturday 06/05/2023, 20:48:07] I can not find "bin" folder, check again...
+[Saturday 06/05/2023, 20:48:07] >>> I am in wa_kdbe.kill_me()
+
+
+[Saturday 06/05/2023, 20:48:07] Exiting...
+[Saturday 06/05/2023, 20:48:07] Turn off USB debugging [and USB debugging (Security Settings)] if you're done.
+[Saturday 06/05/2023, 20:48:07] >>> I am in wa_kdbe.run_scrcpy(_is_scrcpy=False)
+
+
+
+====== Logging starts here. ====== 
+File: wa_kdbe.py
+Date: Saturday 06/05/2023, 20:48:49
+If you see any password here then do let know @github.com/YuvrajRaghuvanshiS/WhatsApp-Key-Database-Extractor
+
+
+
+[Saturday 06/05/2023, 20:48:49] >>> I am in device_serial_id.init(mode=USB, tcp_ip, tcp_port=)
+[Saturday 06/05/2023, 20:48:49] >>> I am in wa_kdbe.main()
+[Saturday 06/05/2023, 20:48:49] >>> I am in wa_kdbe.check_bin()
+[Saturday 06/05/2023, 20:48:49] I can not find "bin" folder, check again...
+[Saturday 06/05/2023, 20:48:49] >>> I am in wa_kdbe.kill_me()
+
+
+[Saturday 06/05/2023, 20:48:49] Exiting...
+[Saturday 06/05/2023, 20:48:49] Turn off USB debugging [and USB debugging (Security Settings)] if you're done.
+[Saturday 06/05/2023, 20:48:49] >>> I am in wa_kdbe.run_scrcpy(_is_scrcpy=False)
+[Saturday 06/05/2023, 20:48:49] Hit "Enter" key to continue....
+
+
+
+====== Logging starts here. ====== 
+File: wa_kdbe.py
+Date: Saturday 06/05/2023, 20:52:15
+If you see any password here then do let know @github.com/YuvrajRaghuvanshiS/WhatsApp-Key-Database-Extractor
+
+
+
+[Saturday 06/05/2023, 20:52:15] >>> I am in device_serial_id.init(mode=USB, tcp_ip, tcp_port=)
+[Saturday 06/05/2023, 20:52:15] >>> I am in wa_kdbe.main()
+[Saturday 06/05/2023, 20:52:15] >>> I am in wa_kdbe.check_bin()
+[Saturday 06/05/2023, 20:52:15] I can not find "bin" folder, check again...
+[Saturday 06/05/2023, 20:52:15] >>> I am in wa_kdbe.kill_me()
+
+
+[Saturday 06/05/2023, 20:52:15] Exiting...
+[Saturday 06/05/2023, 20:52:15] Turn off USB debugging [and USB debugging (Security Settings)] if you're done.
+[Saturday 06/05/2023, 20:52:15] >>> I am in wa_kdbe.run_scrcpy(_is_scrcpy=False)
+[Saturday 06/05/2023, 20:52:15] Hit "Enter" key to continue....
