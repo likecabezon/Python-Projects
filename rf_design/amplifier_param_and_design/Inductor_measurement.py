@@ -4,10 +4,7 @@ from scipy.optimize import minimize
 import pyvisa
 import time
 import csv
-from decimal import Decimal, getcontext
 import math
-import cmath
-import pandas as pd
 import os
 
 
@@ -378,10 +375,99 @@ def process_csv_files(folder_path):
     
     return vectors
 
+def create_coil_menu():
+    return 0
+
+def open_coil_menu(oscilloscope_connected):
+
+    in_menu = True
+    next_step = False
+    coil_list_path = os.getcwd()
+
+    while(in_menu and (not next_step)):
+        print("Input the name of the coil or E for exit")
+        component_name = input()
+        file_path = coil_list_path + "\\inductors\\" + component_name + "\\info.txt"
+
+        if(component_name != "e" and component_name != "E"):
+            try:
+                with open(file_path, 'r') as file:
+                    lines = file.readlines()
+                    next_step = True
+                    # Remove newline characters from each line
+            
+            except FileNotFoundError:
+                print(f"Error: File '{file_path}' not found.")
+        
+            except Exception as e:
+                print(f"An error occurred: {e}")
+        else:
+            in_menu = False
+    
+    next_step = False
+
+    while(in_menu and (not next_step)):
+        print("A - Add a new measurement \nD - Display Results\nE - Exit")
+        command = input()
+        if(command == "A" or command == "a"):
+            if(oscilloscope_connected):
+                print("Set the the fixture\nS - Start the measurement\nE - Exit")
+            else:
+                rm = pyvisa.ResourceManager()
+                rm.list_resources()
+                DS1202Z_E = rm.open_resource('USB0::0x1AB1::0x0517::DS1ZE321404736::INSTR')
+                DS1202Z_E.baud_rate = 96000000
+                oscilloscope_connected = True
+        elif(command == "D" or command == "d"):
+            print("Displaying the results")
+        elif(command == "E" or command == "e"):
+            in_menu = False
+        
+def settings_menu():
+    return 0
+
+
 rm = pyvisa.ResourceManager()
 rm.list_resources()
-DS1202Z_E = rm.open_resource('USB0::0x1AB1::0x0517::DS1ZE231404736::INSTR')
+print(rm.list_resources())
+DS1202Z_E = rm.open_resource('USB0::0x1AB1::0x0517::DS1ZE321404736::INSTR')
 DS1202Z_E.baud_rate = 96000000
+oscilloscope_connected = True
+
+print("Coil_measurement_app\n")
+repeat = True
+while(repeat):
+    print("C - Connect oscilloscope\nN - Create New Coil\nO - Open Existing Coil\nS - Settings\nE - Exit")
+
+    mode = str(input())
+
+    if(mode == "C" or mode == "c"):
+        rm = pyvisa.ResourceManager()
+        rm.list_resources()
+        DS1202Z_E = rm.open_resource('USB0::0x1AB1::0x0517::DS1ZE321404736::INSTR')
+        DS1202Z_E.baud_rate = 96000000
+        oscilloscope_connected = True
+
+    if(mode == "N" or mode == "n"):
+        create_coil_menu()
+
+    elif(mode == "O" or mode == "o"):
+        open_coil_menu()
+
+    elif(mode == "S" or mode == "s"):
+        settings_menu()
+
+    elif(mode == "E" or mode == "e"):
+        
+        repeat = False
+    
+    else:
+        print("Invalid Input")
+        repeat = True
+    
+
+    
+
 
 
 
@@ -389,8 +475,7 @@ DS1202Z_E.baud_rate = 96000000
 #w_values = freqs * 2 *np.pi
 #v1 = cal_measurement_loop(freqs,1,DS1202Z_E)
 #v2 = coil_measurement_loop(freqs,1,DS1202Z_E)
-w_test = np.arange(5e5,30e6,1e5) *2 * np.pi
-test = np.array(scope_method_evaluation(w_test,100e-9))
+
 #gains= np.array(v2)/(np.array(v1)*2)
 #plot_vectors_as_x(w_values,test,gains)
 #scope_plot_error_vs_L(w_values,gains,1e-9,1e-6,2000)
@@ -398,37 +483,4 @@ test = np.array(scope_method_evaluation(w_test,100e-9))
 #measurement_matrix = np.stack((freqs,gains))
 #save_matrix_as_csv(measurement_matrix,'handcoil5test8csv')
 
-Cal_data =[-1.5,-1.6,-1.6,-1.6,-1.6,-1.6,-1.6,-1.5,-1.6,-1.6,-1.6,-1.6,-1.6,-1.6,-1.5,-1.5,-1.5,-1.4,-1.6,-1.6,-1.6,-1.5,-1.5,-1.2,-1.1,-1]
-Mes_data = [-35.6,-30,-26.8,-24.4,-22.4,-20.4,-19.2,-18.4,-17.6,-16.8,-16,-15.2,-14.8,-14,-12.8,-12,-10.8,-9.6,-8.4,-7.6,-6.8,-6.4,-5.6,-4.8,-4,-3.2]
-l_values = []
 
-folder_path = "Coil5"
-vectors = process_csv_files(folder_path)
-print(vectors)
-print(w_test,test)
-#vectors = vectors.append((w_test,test))
-
-
-# Create a list of unique colors for each vector
-colors = ['b', 'g', 'r', 'c', 'm', 'y', 'k']
-
-# Create a plot for each vector with a different color
-for i, (x, y) in enumerate(vectors):
-    color = colors[i % len(colors)]  # Use modulo to cycle through colors
-    plt.plot(x, y, label=f'Vector {i+1}', color=color)
-
-plt.xlabel('X Values')
-plt.ylabel('Y Values')
-plt.legend()
-plt.title('Multiple Vectors')
-plt.show()
-
-
-
-ftrue = np.array([1,2,3,4,5,6,7,8,9,10,11,12,13,14,16,18,20,22,24,26,28,30,33,36,39,42])
-wtrue = ftrue * np.pi * 2 * 1000000
-Vmeas = db_to_linear(calculate_gain_loss(Cal_data,Mes_data))
-plot_log_vectors(wtrue,Vmeas)
-computedL = np.logspace(-9, -6, num=100, base=10)
-print(golden_section_search(wtrue,Vmeas,1e-9,1e-6,))
-error_vs_L(wtrue,Vmeas,computedL)
